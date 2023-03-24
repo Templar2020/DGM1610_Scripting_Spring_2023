@@ -162,7 +162,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-2609728894484093994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreToGive: 100
+  explosionParticle: {fileID: 2008828976383719570, guid: cf4de7b7826e9b640bd7a378de3dd76e, type: 3}
 --- !u!1 &5250746054179004424
 GameObject:
   m_ObjectHideFlags: 0

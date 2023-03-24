@@ -6,19 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     public float hInput;
     public float speed;
-
     private float xRange = 17.0f;
 
     public GameObject lazerBolt; //GameObject projectile to shoot
     public Transform blaster; //Point of origin for the lazerBolt
-
+    // Audio Variables
     private AudioSource blasterAudio;
     public AudioClip laserBlast;
-
+    
 
     // Start is called before the first frame update
     void Start()
     {
+      //Get AudioSource Component
       blasterAudio = GetComponent<AudioSource>();    
     }
 
@@ -35,18 +35,19 @@ public class PlayerController : MonoBehaviour
         //Keep player inside right wall at set xRange
         if(transform.position.x > xRange)
         {
-            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);            
         }
         //Keep player inside left wall at set -xRange
         if(transform.position.x < -xRange)
         {
-            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);            
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            blasterAudio.PlayOneShot(laserBlast,1.0f);
+            blasterAudio.PlayOneShot(laserBlast,1.0f);// Play blasterAudio sound clip
             Instantiate(lazerBolt, blaster.transform.position, lazerBolt.transform.rotation); // Instatiate lazerBolt GameObject at blaster position
         }
+        
     }
 }
