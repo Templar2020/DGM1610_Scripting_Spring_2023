@@ -13,7 +13,7 @@ public class PlayerController2D : MonoBehaviour
     // Player Rigidbody
     [Header("Rigidbody Component")]
     private Rigidbody2D rb;
-    private bool isFacingRight = true;
+    public bool isFacingRight = true;
 
     // Player Jump 
     [Header("Player Jump Settings")]
@@ -24,23 +24,35 @@ public class PlayerController2D : MonoBehaviour
 
     public bool doubleJump;
 
+    [Header("Animations")]
+    private Animator playerAnim;
+
 
     // Start is called before the first frame update
     void Start()
     {
         // Get rigidbody component reference
       rb = GetComponent<Rigidbody2D>();
+      playerAnim = GetComponent<Animator>();
     }
      
     // Fixed Update is called a fixed or set number of frames. This works best with physics based movement
     void FixedUpdate()
     {
+        if(moveInput > 0 || moveInput < 0)
+        {
+            playerAnim.SetBool("isWalking", true);
+        }
+        else
+        {
+           playerAnim.SetBool("isWalking", false);
+        }
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround); // Define what is ground and Check for ground  
       
         moveInput = Input.GetAxis("Horizontal"); // Get the Horizontal keybinding which will return a value between -1 and 1
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);// Move the player left and right
-
+        
         // If the player is moving right but facing left flip the player right
         if(!isFacingRight && moveInput > 0)
         {
@@ -76,10 +88,12 @@ public class PlayerController2D : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpForce;//Makes the player jump
             doubleJump = false;
+            playerAnim.SetTrigger("Jump_Trig");
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !doubleJump && isGrounded)
         {
             rb.velocity = Vector2.up * jumpForce;// Apply jumpForce to player making the player jump
+            playerAnim.SetTrigger("Jump_Trig");
         }
     }
    

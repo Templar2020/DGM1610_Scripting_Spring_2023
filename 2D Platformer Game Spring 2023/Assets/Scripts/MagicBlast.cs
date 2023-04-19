@@ -14,7 +14,7 @@ public class MagicBlast: MonoBehaviour
     void Start()
     {
        // Get Rigidbody Component
-       rb = GetComponent<Rigidbody2D>(); 
+       rb = GetComponent<Rigidbody2D>();
        
     }
 
